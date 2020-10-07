@@ -1,0 +1,92 @@
+---
+title: "課堂練習模板"
+author: "Ken"
+date: "2020-10-07"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+a <- 15 # 變數設定
+b <- a # 呼叫a的值，用來設定變數b的值，相當於 b <- 15
+y <- 22# 單序列跑程式，前面有錯就會停下來
+c <- y
+ls()#.看程式裡有什麼
+find("y")#.更精密的找尋
+```
+
+```{r}
+num1 <- 5
+vNum1 <- c(2,5)
+vNum2 <- c(2, num1) #.1到2的位置有值 不管推疊幾層只會有最外面一層的C
+
+```
+
+
+```{r}
+myName <- "Ken"#.創造人名需要用雙引號 R最小單位是向量(單字) PYTHON是字母
+
+```
+```{r}
+weightofclass603<-c()
+weightofclass603.2<- c()
+```
+
+
+```{r}
+weightofcomingclass603<- sample(45:90,1)
+```
+
+```{r}
+#method 1 concatenate
+weightofclass603<-c(weightofclass603,weightofcomingclass603)
+```
+
+```{r}
+c(5,"Ken") #non-atomic 不同型態的不能放一起!!! eg:文字跟文字、數字跟數字
+c(5,7)
+```
+```{r}
+C(5, 7)
+c("ken","Lulo")
+```
+```{r}
+num1<-5 # 非整數
+num2<-5L # 整數
+
+num1Vector<-c(5,6,7)
+num2Vector<-c(5L,6L,7L)
+typeof(num1)
+typeof(num2) #type耗損記憶體空間
+```
+```{r}
+char1<-"你好"
+char2<-'你好'
+char1Vector<-c("你好","How are you?")
+```
+```{r}
+typeof(char1Vector)
+```
+```{r}
+dialogue <- c('小明說："明天不用上課。"',
+               '小花說："真的嗎？"')
+
+dialogue # 顯示原始值的內容（含輸入時的引號）
+cat(dialogue, sep="\n") # 顯示給人類看（含存出來）的值，sep="\n", 不同元素換行陳列。
+writeLines(dialogue, "conversation.txt") # cat顯示的正是存出來樣貌。
+#文字資訊可用雙引或單引號
+```
+```{r}
+context<-"老師說換行要寫\\n"#跳脫反斜線的意思(雙重跳脫)
+cat(context)
+cat("老師說換行要寫\\n, \\是escape的意思")
+cat("老師說換行要寫\'\\n\', \"\\\"是escape的意思")
+```
+
