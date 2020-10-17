@@ -1,0 +1,165 @@
+---
+title: "課程練習模板"
+author: "Ken"
+date: "2020-10-17"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+###Date TIME
+```{r}
+library(lubridate)##輸入日期先必備
+```
+
+
+```{r}
+tpeTime <- ymd_hms("2020-03-18 13:52:40", tz="Asia/Taipei") ##年月日
+pgTime <- mdy_hms("Mar.18, 2020, 05:52:40", tz="Europe/Lisbon") ##月日年
+```
+```{r}
+tpeTimeVector <- 
+  ymd_hms(
+    c("2020-03-18 13:52:40",
+      "2020-03-11 03:12:40"),
+    tz="Asia/Taipei"
+    ) ##相同時區，相同輸入方式，若字串來自UTC可以不寫tz參數
+  ##2020-03-11T06:56:17Z，後面加Z代表UTC
+``` 
+
+### type/class
+```{r}
+typeof(tpeTime) ##double是數字的概念
+class(tpeTime) ##ct=日期，t=日期
+```
+```{r}
+tpeTime
+print(tpeTime) ##跟原點做比較(過了1584510760秒)
+cat(tpeTime) ##呈現date time 資料電腦的儲存方式
+
+```
+```{r}
+as.numeric(tpeTime)##只有秒數
+cat(as.character(tpeTime ))##跟print一樣，可以儲存文字格式而非秒數
+```
+###讓電腦告訴我們時間
+
+```{r}
+##人告訴電腦時間
+tpeTime2 <- ymd_hms("2010-03-18 16:52:40",tz="Asia/Taipei")
+pgTime2 <- mdy_hms("Mar.01, 2020, 03:52:40", tz="Europe/Lisbon")
+
+```
+
+```{r}
+tpeTime3 <- 
+  with_tz(tpeTime2, tzone="America/New_York") ##電腦懂得時間，代表前面已設定過，由電腦直接跑出想知道的時間
+tpeTime2
+tpeTime3
+print(tpeTime2)
+print(tpeTime3)
+typeof(tpeTime2)
+typeof(tpeTime3)
+```
+```{r}
+cat(tpeTime2)
+cat(tpeTime3)
+
+```
+```{r}
+pgTime3 <- with_tz(pgTime2, tzone="America/New_York")
+```
+
+```{r}
+tpeTime3
+pgTime3 ##DT:日光節約時間
+```
+```{r}
+tpeTime2 - pgTime2 ##來自不同時區仍能直接加減(秒數越大離現在越遠)
+
+```
+```{r}
+tpeTime
+class(tpeTime3)
+tpeTime_UTC<-with_tz(tpeTime,tzone = "UTC")
+tpeTime_UTC
+as.character(tpeTime_UTC)
+```
+```{r}
+tpeTime_iso8601 <- format_ISO8601(tpeTime, usetz=T) ##(電腦懂得時間,電腦轉換成有時區且讓人看懂的字串)
+tpeTime_iso8601
+```
+```{r}
+tpeTime <- ymd_hms(tpeTime_iso8601)
+```
+
+###LIST 一種向量儲存方式(允許不同的TYPE與CLASS)
+```{r}
+purchasingTime <- ymd_hms("2020-03-31T13:40:55Z")
+location <- "一芳"
+item <- "水果茶"
+quantity <- 2
+mingsPurchase <-list(purchasingTime, location, quantity,item)
+print(mingsPurchase)
+
+```
+```{r}
+mingsPurchase2<-list(TIME=purchasingTime,location=location,QUANTITY=quantity,'ITEM NAME'=item)
+print(mingsPurchase2)
+
+```
+```{r}
+heights = c(
+  mary=162,
+  john=177,
+  steve=180)
+```
+
+```{r}
+examplelist <-list(c(2,4,10),c("Tom","Mary"),TRUE) ##list裡面堆疊東西list，還是只有原先的原素量；c則是會增加
+print(examplelist)
+```
+```{r}
+# 「**2杯**」「**水果茶**」
+item1 <- list( quantity=2,`item name`="水果茶")
+# 「**1杯**」「**日月紅茶**」
+item2 <- list(quantity=1,`item name`="日月紅茶")
+mingsPurchase3 <-list(time = purchasingTime,location = location,items=list(item1,item2))
+print(mingsPurchase3)
+```
+```{r}
+hw1 <- list(date=ymd("2020-10-17"),grade=10)
+exam1 <- list(date=ymd("2020-10-28"),grade=50)
+student1 <-list(
+name = "Ken",
+id = "410672033",
+ gmail = "address23418@gmail.com",
+googleClassroom =list(displayName = "K"),
+github =list(username = "tpeKen",
+  repoUrl = "https://github.com/Address23418/109-1-inclass-practice"),
+  homeworks = list(hw1),exams = list(exam1),list())
+```
+
+```{r}
+categoryTemplate = list(categoryName=character(),items = list())
+
+saladcat <- list( categoryName="沙拉套餐",items = list(list("鮭魚沙拉",250),list("火腿沙拉",220),list("鴨胸沙拉",240) ))
+                
+print(saladcat)
+```
+
+```{r}
+save(item2,saladcat,file = "myobject.rda")
+```
+
+
+
+
+
+
