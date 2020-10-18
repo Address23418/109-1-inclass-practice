@@ -1,0 +1,54 @@
+---
+title: "課程練習模板>"
+author: "Ken"
+date: "2020-10-18"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+###創造R裡帶有資訊的物件
+```{r}
+麥香_奶茶 <- 10 #snake
+麥香_紅茶 <- 10
+珍珠奶茶 <- 50 #camel
+珍珠拿鐵 <- 55
+```
+
+```{r}
+麥香_奶茶 <- 10
+麥香_綠茶 <- 麥香_奶茶
+買飲料 <- 麥香_奶茶+珍珠拿鐵
+```
+
+ 
+###Atomic Vector
+```{r}
+#向量推疊
+num <- 6
+num1 <- c(12,num)
+num2 <- c(24,num1,num)
+num3 <- c(num,num1)
+```
+
+```{r}
+sen1 <- "Ken"
+sen2 <- "明天早餐"
+sen3 <- "吃蛋餅"
+senall <- c(sen1,sen2,sen3)
+```
+
+
+
+
+
+
+
+
+
+
