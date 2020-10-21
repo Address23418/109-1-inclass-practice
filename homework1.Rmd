@@ -93,12 +93,10 @@ exampleList$courses$grade 可以取出exampleList底下的courses元素值之再
 
 ```{r ans12}
 # Game5Time
-Game5Time <- list(
-   Date=NBA1920Final567$Game5$Date,
-   Starttime=NBA1920Final567$Game5$Starttime,
-   Timezone=NBA1920Final567$Game5$Timezone
-  
-)
+Game5Time <- list
+( Date=NBA1920Final567$Game5$Date,
+  Starttime=NBA1920Final567$Game5$Starttime,
+ Timezone=NBA1920Final567$Game5$Timezone)
 
 ```
 
@@ -135,7 +133,10 @@ G5TimeParsed <- paste0(Game5.[[2]],Game5.[[3]],Game5.[[4]])
 ```{r ans14}
 # TpeJason  Game 5 : Friday, Oct. 9: Miami Heat at L.A. Lakers, 21:00 ET
 library(lubridate)
-TpeJason <- 
+AllenTime <-  ymd_hms("2020-10-09 21:00:00",
+        tz="America/New_York")
+TpeJason <- with_tz (AllenTime,tzone = "Asia/Taipei")
+print(TpeJason)
 ```
 
 ### 1.5 Later Time
@@ -144,6 +145,11 @@ Louis臨時被要求整理財報資料，而在比賽開始後的15分鐘出現�
 
 ```{r ans15}
 # ParisLouis
+AllenTime2 <- ymd_hms("2020-10-09 21:15:00",
+        tz="America/New_York")
+
+ParisLouis <- with_tz (AllenTime2,tzone = "Europe/Paris")
+  
 ```
 
 ## 2. Factor
@@ -163,6 +169,9 @@ chNumbersWith0 <- sample(ch0to9, randomLength, replace=T)
 
 ```{r ans21}
 # sumChNumbers
+數字 <- factor(chNumbers)
+數字2 <- as.numeric(數字)
+numChNumbers <- sum(數字2)
 ```
 
 ### 2.2 
@@ -170,6 +179,10 @@ chNumbersWith0 <- sample(ch0to9, randomLength, replace=T)
 
 ```{r ans22}
 # sumChNumbersWith0
+數字3 <- factor(chNumbersWith0)
+數字4 <- as.numeric(數字3)
+sumChNumberwith0 <- sum(數字4)
+
 ```
 
 
@@ -186,6 +199,7 @@ chNumbersWith0 <- sample(ch0to9, randomLength, replace=T)
 
 ```{r ans31}
 # escapeText
+
 ```
 
 ### 3.2 Dear Mary
@@ -218,6 +232,9 @@ Dear Mary:
 
 ```{r ans32}
 # dearStudent
+student[[1]]
+student[[2]]
+
 ```
 
 
