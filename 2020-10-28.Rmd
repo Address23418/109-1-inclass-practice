@@ -1,0 +1,93 @@
+---
+title: "課堂練習模板>"
+author: "Ken"
+date: "2020-10-28"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+#建立一個變數名稱為我的年紀，其值為20。另外建立一個變數名稱為my_age，其值以呼叫我的年紀變數取得。
+我的年紀 <- 20
+
+my_age <- 我的年紀
+cat(my_age)
+```
+```{r}
+myName <- "Mary"
+
+length(myName) # 查看物件本身代表幾個值。
+
+cat(length(myName))
+
+```
+```{r}
+stringInteger <- c("1","2","-11")
+
+class(stringInteger) # 無法進行數值運算
+
+typeof(stringInteger)
+```
+```{r}
+studentId <- c(410773002, 410773015)
+
+class(studentId
+      )
+a <- as.character(studentId)
+
+class(a)
+```
+```{r}
+library(lubridate)
+```
+
+```{r}
+#2020-03-18 13:52:40 年月日時間
+
+Taipei <- ymd_hms ("2020-03-18 13:52:40",tz="Asia/Taipei")
+
+ymd_hms(
+c("2020-03-18 13:52:40","2020-03-11 03:12:40")
+) #若是UTC時間則不用設定tz
+
+print(Taipei)#給人看
+
+cat(Taipei)#秒數儲存
+
+cat(as.character(Taipei))
+```
+```{r}
+#Mar.18, 2020, 05:52:40 月日年時間
+pgTime <- mdy_hms("Mar.18, 2020, 05:52:40",
+                  tz="Europe/Lisbon")
+```
+
+```{r}
+# Method 2: pass as a character that fits ISO8601 date time description standard with tz onset specified
+tpeTime_iso8601 <- format_ISO8601(Taipei, usetz=T)
+
+tpeTime_iso8601
+
+tpeTime <- ymd_hms(tpeTime_iso8601)
+
+cat(tpeTime_iso8601)
+cat(tpeTime)
+```
+```{r}
+object1 <- c(2,5)
+object2 <- ymd_hms(
+  c("2015-03-22 12:28:42","2017-12-22 15:33:48"),
+  tz="Asia/Taipei"
+)
+object3 <- list(2, FALSE, c("a","b","c"))
+save(object1, object2, object3, file="threeObjects.Rda")
+
+```
+
