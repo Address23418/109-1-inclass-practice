@@ -1,0 +1,57 @@
+---
+title: "課程練習模板"
+author: "Ken"
+date: "2020-11-04"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+gender = "女"
+
+school = "國立臺北大學"
+
+title = "問 泰昇補習班打工"
+
+content = "在泰昇補習班打工推嗎?"
+
+tags = "大學生打工"
+
+timestamp = "Nov.14"
+
+photo = "照片網址"
+
+```
+
+```{r}
+T<-"Trump"
+B<- "Biden"
+ 
+library(lubridate)
+          
+candidate <- c("Trump","Biden")
+
+time <- ymd_hms("2020-11-03",14:59:00)
+
+vote <-c(220,213)
+
+uncertain.vote <- c(20,50)
+ 
+predicted.winner <-"Trump"
+
+electriction.US<- list(  candidate,
+          time,
+          vote,
+          uncertain.vote,
+       predicted.winner)
+        
+   print(electriction.US)                                  
+```
+
