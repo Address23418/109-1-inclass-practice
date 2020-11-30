@@ -1,0 +1,127 @@
+---
+title: "課程練習模板"
+author: "Ken"
+date: "2020-11-30"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+set.seed(2020)
+ages_chr <- sample(c("4以下","5-10","11-15"), 15, replace=T)
+unique(ages_chr)#不會有重複之類別
+table(ages_chr)#計算各類別次數
+```
+```{r}
+ages_fct1 <-  factor(ages_chr)
+ages_fct1
+table(ages_fct1) #類別呈現不會排序
+```
+
+
+```{r}
+ages_fct2 <- factor(ages_chr,levels = c("4以下","5-10","11-15"))
+ages_fct2
+table(ages_fct2)
+```
+```{r}
+
+ages_fct2[[3]] #4以下
+ages_fct2[[6]] #5-10
+ages_fct2[[3]] > ages_fct2[[6]]
+
+
+```
+
+
+```{r}
+ages_fct3 <- factor(ages_chr,levels = c("4以下","5-10","11-15"),ordered = T)#ORDERED指可排序
+
+ages_fct3
+ages_fct3[[3]] #4以下
+ages_fct3[[6]] #5-10
+ages_fct3[[3]] > ages_fct3[[6]]
+ages_fct3[[6]] < "11-15" # 也可以用文字寫下levels中有的分類
+```
+```{r}
+ages_fct3[[3]]<"5-10"#要比的話必須要是出現過的類型
+ages_fct3[[5]]>"11-15"
+
+```
+```{r}
+ages_fct2 = factor(ages_fct2,ordered = T)
+ages_fct2
+```
+```{r}
+ages_fct3_newLevels = factor( ages_fct3, levels = c("11-15","5-10","4以下"))
+ages_fct3_newLevels
+is.ordered(ages_fct3_newLevels)#判斷可否排序
+```
+```{r}
+
+old_fct <- 
+  factor(c("4以下","5-10","11-15"))
+levels(old_fct) # 依序下的各類別名稱
+
+levels(old_fct) <- c("青少年", "幼兒", "兒童")
+levels(old_fct)
+old_fct
+```
+```{r}
+set.seed(2018)
+Gender <- sample(c("M","F"),10000,replace = T)
+head(Gender)
+
+Gender_FCT <- factor(Gender)
+levels(Gender_FCT)
+levels(Gender_FCT) <- c("女","男")
+head(Gender_FCT)
+```
+```{r}
+a <- c(177,178)
+names(a) <- c("John","MARY")
+a
+```
+
+```{r}
+old_fct2 <- 
+  factor(c("4以下","5-10","11-15", "5-10"))
+levels(old_fct2)
+#levels(old_fct2) <- c("4以下","5-10","11-15") 此為改變名稱而非排序
+#old_fct2
+```
+```{r}
+set.seed(2020)
+ages_chr <- sample(c("4以下","5-9","10-14", "15-19"), 20, replace=T)
+ages_chr
+
+ages_fctBy5 <- 
+  factor(
+    ages_chr,
+    levels = c("4以下","5-9","10-14", "15-19")
+  )
+
+levels(ages_fctBy5)
+table(ages_fctBy5)
+
+levels(ages_fctBy5) <- c("10以下", "10以下", "10以上", "10以上")#整併
+table(ages_fctBy5)
+```
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
