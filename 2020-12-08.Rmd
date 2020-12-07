@@ -1,0 +1,142 @@
+---
+title: "課堂練習模板"
+author: "Ken"
+date: "2020-12-08"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(purrr)
+```
+
+```{r}
+sukiyaMenu <- jsonlite::fromJSON("https://www.dropbox.com/s/iu9b1hnvbtss83q/sukiyaMenu.json?dl=1")
+
+nonsetMenu3 <- sukiyaMenu[c("豪華雙饗丼", "牛丼類", "咖哩類" )]
+```
+
+
+```{r}
+items <- list()
+items$dish_name = vector("list", length=3)
+items$dish_name
+```
+
+
+```{r}
+charVect <- vector("character", 5)
+charVect
+charVect <- vector()
+```
+
+
+```{r}
+# 餐點名稱
+dish_name = nonsetMenu3[[1]]$name #dishname是list
+items$dish_name[[1]] <- unlist(dish_name)
+
+dish_name = nonsetMenu3[[2]]$name
+items$dish_name[[2]] <- unlist(dish_name)
+
+dish_name = nonsetMenu3[[3]]$name
+items$dish_name[[3]] <- unlist(dish_name)
+```
+
+
+```{r}
+# 餐點名稱
+{
+  dish_name <- nonsetMenu3[[1]]$name #expression
+  items$dish_name[[1]] <- unlist(dish_name)
+}
+{
+  dish_name <- nonsetMenu3[[2]]$name
+  items$dish_name[[2]] <- unlist(dish_name)
+}
+{
+  dish_name <- nonsetMenu3[[3]]$name
+  items$dish_name[[3]] <- unlist(dish_name)
+}
+#大括號好處: 可收起來 可看清楚 
+```
+
+
+```{r}
+#最後一個expression的可視結果
+items$dish_name[[1]]  # 或
+unlist(dish_name)
+
+```
+
+
+```{r}
+result1 <- {
+  dish_name <- nonsetMenu3[[1]]$name # 1st expression
+  items$dish_name[[1]] <- unlist(dish_name)  # 2nd expression
+}
+{
+  dish_name <- nonsetMenu3[[1]]$name # 1st expression
+  items$dish_name[[1]] <- unlist(dish_name)  # 2nd expression
+} -> result2
+#1跟2結果一樣
+
+result3 <- {
+  dish_name <- nonsetMenu3[[1]]$name # 1st expression
+  unlist(dish_name)  # 2nd expression
+}
+
+
+```
+
+
+```{r}
+result4 <- {
+  dish_name <- nonsetMenu3[[1]]$name # 1st expression
+  #cat(unlist(dish_name))  # 2nd expression
+}    #cat不能用 print可用
+```
+
+```{r}
+mingsPrice <- # 找出小明價格
+{
+  sizeChoice <- nonsetMenu3[["豪華雙饗丼"]][["product_variations"]][[2]]
+  pick_size <- sizeChoice$name == '飯大碗'
+  sizeChoice$price[pick_size]
+}
+
+yingsPrice <- # 找出小英價格
+{
+  sizeChoice <- nonsetMenu3[["牛丼類"]][["product_variations"]][[4]]
+  pick_size <- sizeChoice$name == '迷你碗'
+  sizeChoice$price[pick_size]
+}
+
+total= mingsPrice + yingsPrice
+```
+
+```{r}
+
+
+
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
