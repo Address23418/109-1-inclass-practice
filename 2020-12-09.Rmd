@@ -1,0 +1,139 @@
+---
+title: "課堂練習模板"
+author: "Ken"
+date: "2020-12-09"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(purrr)
+# tilde+{}形成公式，可以一直反復使用
+map(
+  list(2,5,3,7),
+  ~{
+    3^.x  #3的2.5.3or7次方
+  }
+)
+map(
+  c(2,5,3,7),
+  ~{
+    3^.x
+  }
+)
+```
+
+```{r}
+map(
+  list(
+    list("Mary", 5),
+    list("John", 10)
+  ),
+  ~{
+    paste0(.x[[1]], " is ",.x[[2]], " years old")
+  }
+)
+```
+
+
+```{r}
+myData <- 
+  list(
+    list("Mary", 5),
+    list("John", 10)
+  )
+
+# .x 代表myData的元素
+map(
+  myData,
+  ~{
+    paste0(.x[[1]], " is ",.x[[2]], " years old")
+  }
+)
+
+# .x 代表myData元素值的位置
+map(
+  1:2,
+  ~{
+    paste0(myData[[.x]][[1]], " is ", myData[[.x]][[2]], " years old")
+  }
+) #取兩次
+ #.x可能是1or2
+
+```
+
+
+```{r}
+#取兩次
+.x=1
+myData[[1]]
+
+.x=2
+myData[[2]]
+```
+
+
+```{r}
+map(
+  seq_along(myData),
+  ~{
+    paste0(myData[[.x]][[1]], " is ", myData[[.x]][[2]], " years old")
+  }  
+)
+```
+
+
+```{r}
+seq_along(myData) #比較正確的方式
+1:length(myData)
+
+```
+
+
+```{r}
+sukiyaMenu <- jsonlite::fromJSON("https://www.dropbox.com/s/iu9b1hnvbtss83q/sukiyaMenu.json?dl=1")
+
+nonsetMenu3 <- sukiyaMenu[c("豪華雙饗丼", "牛丼類", "咖哩類" )]
+```
+
+
+```{r}
+{
+  dish_name <- nonsetMenu3[[1]]$name # 1st expression
+  unlist(dish_name)  # 2nd expression
+}
+```
+
+
+```{r}
+{
+  dish_name <- sukiyaMenu[[.x]]$name # 1st expression
+  unlist(dish_name)  # 2nd expression
+}
+
+
+```
+
+```{r}
+map(
+  seq_along(sukiyaMenu),
+  ~ {
+    dish_name <- sukiyaMenu[[.x]]$name # 1st expression
+    unlist(dish_name) # 2nd expression
+  }
+) -> result
+result <- unlist(result[-1])
+result
+```
+
+
+```{r}
+```
+
