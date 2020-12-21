@@ -1,0 +1,207 @@
+---
+title: "課堂練習模板"
+author: "Ken"
+date: "2020-12-21"
+output: output_format
+params:
+  id: "410672033"
+---
+## Your code
+```{r}{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+# Given some information
+R <- 0.09
+M <- 10000
+T <- 3
+# What I need to do
+PDV <- 
+{
+  M/(1+R)**T
+}
+```
+
+
+```{r}
+getPDV <- function(R,M,T) #需先給定，function的定義
+{
+  M/(1+R)**T
+}
+getPDV(1,0.03,1)
+```
+
+```{r}
+#fuction有自己的執行環境
+debug(getPDV) 
+getPDV(R=0.09, T=3, M=10000) 
+undebug(getPDV)
+```
+```{r}
+# 查詢函數formals arguments要求
+formals(getPDV) #輸入
+body(getPDV)
+environment(getPDV) #查getpdv是哪個環境創造的(function enviroment)
+```
+
+```{r}
+# Given some information
+TT <- 3
+# What I need to do
+getPDV2 <- function(R,M){
+  M/(1+R)**TT
+}
+```
+
+```{r}
+getPDV2(R=0.12, M=50000)
+debug(getPDV2)
+getPDV2(R=0.12, M=50000)
+undebug(getPDV2)
+```
+
+```{r}
+TT <-1
+getPDV2(R=0.12, M=50000)
+```
+```{r}
+#值無法儲存
+testFun <- function(){
+  a <-2
+  b <- 5
+  a+b
+}  
+testFun()
+```
+
+```{r}
+#值會回傳
+testFun <- function(){
+  a <-2
+  b <- 5
+  return(a+b) #RETURN出現會中斷函數
+}
+testFun()
+```
+
+```{r}
+testFun <- function(){
+  a <-2
+  b <- 5
+  invisible(a+b) #INVISIBLE會中斷函數，且不一定會回傳，必須要有物件名才能回傳
+}
+testFun()
+output <- testFun()
+output
+```
+```{r}
+demandFun <- function(P) 5-3*P
+supplyFun <- function(P) 1+0.5*P
+market <- list(
+  demand=demandFun,
+  supply=supplyFun
+)
+```
+
+
+```{r}
+df0 <- function(f){
+  epsilon <- 0.00001
+  (f(epsilon)-f(0))/epsilon
+}
+
+df0(market$demand) #放function name而已
+df0(market$supply)
+```
+```{r}
+library(lubridate); library(dplyr); library(stringr); library(purrr)
+jsonlite::fromJSON(
+"https://www.dropbox.com/s/8sftw4bbjumeqph/signMapping.json?dl=1") -> horoscopes
+```
+
+```{r}
+userBirthday <- ymd("1998-12-16")
+
+get_userHoroscopes <- function(userBirthday)
+  { 
+    # 取得生日年份
+    birthYear <- {
+      year(userBirthday)  }
+    
+    # 取得生日年份的12星座起始日期
+    horoscopeStartingDateInBirthYear <- {
+     ymd(paste0(birthYear,"年",horoscopes$sdate))
+      
+    }
+    
+    # 切割生日成為12星座區間
+    cutBirthdayByStartingDate <- {
+               cut(userBirthday,breaks =           
+               c(ymd(paste0(birthYear,"-01-01")),horoscopeStartingDateInBirthYear,
+               ymd(paste0(birthYear,"-12-31"))))
+                                                }
+    
+    # 改變星座區間類別名稱
+    birthdayCutRenameLevels <- {
+    c("摩羯座",horoscopes$sign)
+      
+    }
+    levels(cutBirthdayByStartingDate) <- birthdayCutRenameLevels
+    
+    as.character(cutBirthdayByStartingDate)
+  }
+```
+
+
+```{r}
+a <-get_userHoroscopes(ymd("1998-01-01"))
+get_userHoroscopes(ymd("1998-05-12"))
+
+is.Date(a)
+is.character(a)
+is.Date(userBirthday)
+```
+```{r}
+get_userHoroscopes2 <- function(userBirthday){
+  assertthat::assert_that(is.Date(userBirthday),
+                          msg="userBirthday should be a Date class object.")
+  get_userHoroscopes(userBirthday)
+}
+
+get_userHoroscopes2("2010-01-22")
+get_userHoroscopes2(ymd("2010-01-22"))
+```
+
+```{r}
+#預設值要放在function最後面
+df0 <- function(f, epsilon=0.00001){
+  (f(epsilon)-f(0))/epsilon
+}
+```
+
+
+```{r}
+myFun <- function(x){
+  5*x^2-2*x+7
+}
+
+df0(myFun)
+```
+
+```{r}
+df0(myFun, epsilon = 1e-08) #1e代表10的..次方
+df0(myFun, epsilon = 1e-10)
+```
+```{r}
+download.file(
+  "https://www.dropbox.com/s/zim84gg2g23g0pc/horoscopes.R?dl=1", 
+  destfile="./horoscopes.R", mode="w"
+)
+```
+
+```{r}
+source("./horoscopes.R")
+```
+
