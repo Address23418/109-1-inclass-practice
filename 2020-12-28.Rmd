@@ -1,0 +1,354 @@
+---
+title: "課堂練習模板"
+author: "Ken"
+date: "2020-12-28"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(lubridate)
+library(stringr)
+library(purrr)
+
+bill <- 250
+hasVoucher <- FALSE
+if(hasVoucher)
+{
+  bill <- bill-20
+  }
+bill
+```
+
+```{r}
+set.seed(10739)
+customers <- data.frame(
+  bills = sample(200:500, 10),
+  vouchers = sample(c(T,F), size=10, replace=T #抽出會放回
+                    ,
+                     prob=c(0.4,0.6)
+                     )
+)
+head(customers)
+```
+
+
+```{r}
+bill <- customers$bills[[3]]
+hasVoucher <- customers$vouchers[[3]]
+totalBill <- 
+{
+  startingBill <- bill
+  if(hasVoucher)
+  {
+    bill <- bill - 20
+  }
+  message("You initial bill is ", startingBill,".\n",
+          "You final bill is ", bill)
+  bill
+}
+print(totalBill)
+```
+```{r}
+get_totalBill <- function(bill, hasVoucher)
+{
+  startingBill <- bill
+  if(hasVoucher)
+  {
+    bill <- bill - 20
+  }
+  message("You initial bill is ", startingBill,".\n",
+          "You final bill is ", bill, "\n")
+  bill
+}
+
+get_totalBill(customers$bills[[5]],customers$vouchers[[5]])
+```
+
+```{r}
+map(1:10 ,
+~{ 
+  get_totalBill(
+  customers$bills[[.x]],
+  customers$vouchers[[.x]])
+  }     )
+```
+
+
+```{r}
+#map2可以兩個變數一起動
+purrr::map2(
+  customers$bills, customers$vouchers,
+  ~get_totalBill(.x, .y)
+) #一個指令可忽略大括號
+
+```
+
+
+```{r}
+#省略用法
+map2(customers$bills, customers$voucher,get_totalBill)
+```
+
+```{r}
+x <- 10
+  
+fx <- {
+  if(x<0)
+   {
+    stop("x has to be non-negative.")}    sqrt(x)
+  }
+```
+
+```{r}
+get_fx <- function(x){
+  if(x<0)
+  {
+    stop("x has to be non-negative.")
+  }
+  sqrt(x)
+}
+
+get_fx(2)
+get_fx(-8)
+```
+
+
+```{r}
+grade <- 55
+
+getcomment <-function(grade) {
+  if(grade<60)
+  {
+    return("Don't give up. There is still hope.")}
+  return("Good job. Keep going")
+}
+
+getcomment(58)
+getcomment(62)
+```
+
+```{r}
+comment_grade <- function(grade){
+  if(grade < 60) return("Don't give up. There is still hope.")
+  return("Good job. Keep going")
+}
+
+comment_grade(df_grades$grade[[5]])
+comment_grade(df_grades$grade[[19]])
+
+df_grades <- data.frame(
+  grade=sample(50:95, 20, replace = T)
+)
+#map執行完後回傳chr 值必須一對一
+purrr::map_chr(
+  df_grades$grade,
+  comment_grade
+) -> df_grades$comment
+```
+
+
+```{r}
+unlist(map(
+  df_grades$grade,comment_grade
+)) -> df_grades$comment
+df_grades
+```
+
+
+```{r}
+grades <- c(55, 72, 40) # fail in first
+# any one failed? 此下只出現第一個的後果無法反映後面
+if(any(grades < 60) )message("\nYes, someone failed") #只有一行指令才能省略
+
+grades<60
+```
+```{r}
+all(grades<60)
+
+any(grades<62)
+```
+```{r}
+Sys.setenv("_R_CHECK_LENGTH_1_CONDITION_" = "true")
+```
+
+
+```{r}
+grades >= 60
+gender == "female"
+(grades >= 60)&(gender == "female")
+
+# &全部都檢查
+# && 只要有F的情況就會停止
+```
+
+```{r}
+grade1 <- list(
+  economics=55,
+  calculus=77
+)
+grade2 <- c(
+  economics=55,
+  calculus=77
+)
+```
+
+```{r}
+#AND
+(is.list(grade1) &  grade1$economics > 60)
+(is.list(grade2) &  grade2$economics > 60)
+```
+```{r}
+(is.list(grade1) && grade1$economics > 60)
+(is.list(grade2) && grade2$economics > 60)
+```
+```{r}
+#OR
+(is.list(grade1) | grade1$economics > 60)
+(is.list(grade2) | grade2$economics > 60)
+```
+```{r}
+(is.list(grade1)||grade1$economics > 60)
+(is.list(grade2)||grade2$economics > 60)
+```
+```{r}
+# 前提條件
+x <- 4L
+# 任務
+fx <- {
+  
+  # ending scenario 1:
+  {
+    x/2
+  }
+  # ending scenario 2:
+  {
+    -(x+1)/2
+  }
+}
+
+```
+
+```{r}
+# 前提條件
+x <- 4L
+# 任務
+fx <- {
+  
+  # ending scenario 1:
+  if(x %% 2 ==0)
+  {
+    x/2
+  } else #else要跟在前面的大括號後面
+  # ending scenario 2:
+  {
+    -(x+1)/2
+  }
+}
+
+fx
+```
+
+```{r}
+fx <- function(x)
+{
+  # ending scenario 1:
+  if(x %% 2 ==0)
+  {
+    return(x/2)
+  } else 
+  # ending scenario 2:
+  {
+    return(-(x+1)/2)
+  }
+}
+
+fx(4L)
+fx(7L)
+fx(9L)
+```
+```{r}
+# 前提
+grade <- 88
+# 任務
+comment <- 
+{
+  if(grade>=90)
+  {
+    "優"
+  } else
+  if(grade >=80 && grade <=89)
+  {
+    "良"
+  } else
+  if(grade>=70 && grade <=79)
+  {
+    "尚可"
+  } else
+  {
+    "待加強"
+  }
+}
+
+comment
+```
+```{r}
+comment_grade <- function(grade){
+  if(grade>=90)
+  {
+    "優"
+  } else
+  if(grade >=80 && grade <=89)
+  {
+    "良"
+  } else
+  if(grade>=70 && grade <=79)
+  {
+    "尚可"
+  } else
+  {
+    "待加強"
+  }
+}
+
+comment_grade(65)
+comment_grade(92)
+```
+
+```{r}
+sortedEmails <- list(
+  office=character(),
+  student=character(),
+  private=character()
+)
+```
+
+
+```{r}
+set.seed(2839)
+emailFrom <- sample(
+  c("econ@gm.ntpu.edu.tw","classStudents@gm.ntpu.edu.tw","xxx@gmail.com","econStaff@gm.ntpu.edu.tw","yyyy@gmail.com"), 50,
+  replace=T
+)
+head(emailFrom, 10)
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
