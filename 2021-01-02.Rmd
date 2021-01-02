@@ -1,0 +1,129 @@
+---
+title: "課堂練習模板"
+author: "Ken"
+date: "2021-01-02"
+output: output_format
+params:
+  id: "410672033"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+sampleData <- list(
+  list("男", 45), list("女", 32), list("男",50), list("男",33), list("女", 21)
+)
+
+for(.x in c(1,2,3,4,5))
+{   print(sampleData[[.x]][[1]])
+  
+}
+```
+
+```{r}
+{
+  examX <- grades$exam[[.x]]
+  homeworksX <- grades$homework[[.x]]
+  ## 學期總成績（作業40%，考試60%)
+  semesterGrade <- {
+    examX <- ifelse(is.na(examX), 0, examX)
+    homeworksX <- ifelse(is.na(homeworksX), 0, homeworksX)
+    0.4 * homeworksX + 0.6 * examX
+  }
+  ## 算出英文成績
+  letterGrade <- {
+    cut(semesterGrade,
+      breaks = c(
+        -Inf, # F
+        60, # C
+        70, # B
+        80, Inf
+      ), # A
+      right = F
+    ) -> cut_semesterGrade
+    levels(cut_semesterGrade) <- c("F", "C", "B", "A")
+    as.character(cut_semesterGrade)
+  }
+  ## 學期成績通知信內容
+  emailContent <- {
+    glue::glue("親愛的同學：\n\n本學期你的考試成績為{examX}，作業成績為{homeworksX}，經換算學期成績為{semesterGrade}（為{letterGrade}等）。\n\n祝學習愉快")
+  }
+
+  ## 存起來
+  results$semesterGrade[[.x]] <- semesterGrade
+  results$letterGrade[[.x]] <- letterGrade
+  results$emailContent[[.x]] <- emailContent
+}
+```
+
+
+```{r}
+letter2_grade <- {
+  if(semesterGrade>=80){"A"
+    }else
+  if(semesterGrade<80 &&semesterGrade >=70){"B"
+    }else
+    if(semesterGrade>=60 &&semesterGrade<70){"C"
+    }else
+    {"F"}
+}
+```
+
+
+```{r}
+# iterates: 1,2,3,4,5
+# iteration block
+{
+  sampleData[[.x]]
+}
+
+.x <- .x + 1 # if .x exists in your environment
+
+
+```
+
+
+```{r}
+while(flag)
+{
+  .x <- .x+1 # Iterate generation
+  sampleData[[.x]][[1]]
+  flag <- (.x < 5) # Continuation flag
+}
+```
+
+
+```{r}
+rm(list=ls())
+sampleData <- list(
+  list("男", 45), list("女", 32), list("男",50), list("男",33), list("女", 21)
+)
+```
+
+```{r}
+.x <- 0 # initial iterate
+flag <- TRUE # initial flag
+while(flag)
+{
+  .x <- .x+ 1 # Iterate generation
+  print(sampleData[[.x]][[1]])
+  flag <- (.x < 5) # continuation flag
+}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
